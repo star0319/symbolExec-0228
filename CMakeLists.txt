@@ -6,21 +6,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Find required packages
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(CAPSTONE REQUIRED capstone)
-find_package(Z3 REQUIRED)
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(CAPSTONE REQUIRED capstone)
+#find_package(Z3 REQUIRED)
 
 # Include directories
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include
-    ${CAPSTONE_INCLUDE_DIRS}
-    ${Z3_INCLUDE_DIR}
+        AFTER
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/external/include
 )
 
 # Link directories
 link_directories(
-    ${CAPSTONE_LIBRARY_DIRS}
-    ${Z3_LIBRARY_DIRS}
+        BEFORE
+        ${CMAKE_SOURCE_DIR}/external/lib
 )
 
 # Source files
@@ -42,9 +42,9 @@ add_executable(symexec ${SOURCES})
 
 # Link libraries
 target_link_libraries(symexec
-    ${CAPSTONE_LIBRARIES}
-    ${Z3_LIBRARIES}
-    dl
+        z3
+        capstone
+        dl
 )
 
 # Compiler flags
