@@ -18,7 +18,7 @@ SymbolicValue::SymbolicValue(uint64_t concrete)
 
 SymbolicValue::SymbolicValue(z3::expr symbolic) 
     : type(ValueType::SYMBOLIC), concreteValue(0), 
-      symbolicValue(symbolic), bits(symbolic.get_sort()->bv_size()) {}
+      symbolicValue(symbolic), bits(symbolic.get_sort().bv_size()) {}
 
 SymbolicValue SymbolicValue::makeSymbolic(z3::context& ctx, const std::string& name, size_t bits) {
     z3::sort sort = bits == 8 ? ctx.bv_sort(8) : 

@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include <cstdint>
-#include <z3++.h>
+#include <z3/z3++.h>
 #include "MemoryModel.h"
 
 namespace symexec {

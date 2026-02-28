@@ -7,7 +7,7 @@
 #include <set>
 #include <cstdint>
 #include <memory>
-#include <z3++.h>
+#include <z3/z3++.h>
 #include "MemoryModel.h"
 #include "Disassembler.h"
 

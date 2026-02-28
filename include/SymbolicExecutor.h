@@ -7,7 +7,7 @@
 #include <set>
 #include <cstdint>
 #include <functional>
-#include <z3++.h>
+#include <z3/z3++.h>
 #include "ELFParser.h"
 #include "Disassembler.h"
 #include "CFGBuilder.h"

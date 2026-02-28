@@ -6,7 +6,7 @@
 #include <map>
 #include <cstdint>
 #include <memory>
-#include <z3++.h>
+#include <z3/z3++.h>
 #include <variant>
 
 namespace symexec {

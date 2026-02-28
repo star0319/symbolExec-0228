@@ -75,30 +75,33 @@ std::vector<Instruction> Disassembler::disassembleRegion(const uint8_t* code, si
     
     size_t offset = 0;
     size_t count = 0;
-    
+
     while (offset < size && (maxInsts == 0 || count < maxInsts)) {
-        if (cs_disasm_iter(handle, &code[offset], &size, &baseAddr, insn)) {
+        const uint8_t* codePtr = &code[offset];
+        size_t remainingSize = size - offset;
+        uint64_t currentAddr = baseAddr + offset;
+
+        if (cs_disasm_iter(handle, &codePtr, &remainingSize, &currentAddr, insn)) {
             Instruction inst;
             inst.address = insn->address;
             inst.size = insn->size;
             inst.mnemonic = insn->mnemonic;
             inst.opStr = insn->op_str;
             inst.bytes.assign(insn->bytes, insn->bytes + insn->size);
-            
+
             // Parse operands
             parseOperands(insn, inst);
-            
+
             // Analyze instruction semantics
             analyzeInstruction(inst);
-            
+
             instructions.push_back(inst);
-            
+
             offset += insn->size;
             count++;
         } else {
             // Skip invalid bytes
             offset++;
-            baseAddr++;
         }
     }
     
@@ -235,7 +238,7 @@ void Disassembler::parseOperands(const cs_insn* csInst, Instruction& inst) {
             for (int i = 0; i < arm64->op_count; ++i) {
                 cs_arm64_op& op = arm64->operands[i];
                 Operand operand;
-                operand.size = op.size;
+                // operand.size = op.size;
                 
                 switch (op.type) {
                     case ARM64_OP_REG:

@@ -34,7 +34,6 @@ set(SOURCES
     src/PathConstraint.cpp
     src/SymbolicExecutor.cpp
     src/TestCaseGenerator.cpp
-    src/Statistics.cpp
 )
 
 # Create executable

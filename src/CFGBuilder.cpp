@@ -154,7 +154,7 @@ std::pair<const uint8_t*, size_t> CFGBuilder::getCodeSection(const ELFInfo& elfI
     
     // Last resort: use first executable segment
     for (const auto& ph : elfInfo.programHeaders) {
-        if (ph.type == PT_LOAD && (ph.flags & 1)) {  // Executable
+        if (ph.type == 1 && (ph.flags & 1)) {  // Executable
             if (ph.offset + ph.filesz <= binaryData.size() && ph.filesz > 0) {
                 return {&binaryData[ph.offset], ph.filesz};
             }
@@ -300,7 +300,7 @@ uint64_t CFGBuilder::resolveBranchTarget(const Instruction& inst, uint64_t curre
     if (inst.operands.empty()) return 0;
     
     // Direct branch: target is immediate operand
-    if (!inst.operands[0].operands.empty() && inst.operands[0].isImm()) {
+    if (!inst.operands.empty() && inst.operands[0].isImm()) {
         return inst.operands[0].value;
     }
     
